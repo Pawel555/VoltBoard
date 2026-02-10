@@ -10,7 +10,7 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
 
   body {
     background-color: ${({ theme }) => theme.colors.background};
-    color: ${({ theme }) => theme.colors.text};
+    color: ${({ theme }) => theme.colors.white};
     font-family: 'Inter', sans-serif;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
