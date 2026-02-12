@@ -58,6 +58,7 @@ export const ButtonsWrapper = styled.div`
   display: flex;
   width: 100%;
   justify-content: flex-end;
+  align-items: center;
   gap: 12px;
 `;
 
@@ -70,10 +71,9 @@ export const TitleWrapper = styled.div`
 
 //IconButton
 export const IconButtonStyled = styled.button<{ $active: boolean }>`
-  display: inline-flex;
-  width: 40px;
-  height: 40px;
-  padding: 5px;
+  display: flex;
+  padding: 8px;
+  gap: 8px;
   align-items: center;
   justify-content: center;
   background-color: ${({ theme }) => theme.colors.darkGray};
@@ -90,8 +90,8 @@ export const IconButtonStyled = styled.button<{ $active: boolean }>`
   }
 
   svg {
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
   }
 
   ${({ $active, theme }) =>
