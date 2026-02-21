@@ -2,6 +2,7 @@
   "dashboard": {
     "title": "EV Charging Hub",
     "subtitle": "Monitor and manage your charging network",
+    "modalTitle": "Find a charging station",
     "addStationText": "Add station"
   }
 }

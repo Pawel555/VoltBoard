@@ -8,6 +8,7 @@ import {
   TitleWrapper,
 } from "./styles";
 import { IoLanguage } from "react-icons/io5";
+import { LuMapPin } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
 
 enum Language {
@@ -18,9 +19,11 @@ enum Language {
 export function TopPannel({
   editDashboard,
   setEditDashboard,
+  openFindStationModal,
 }: {
   editDashboard: boolean;
   setEditDashboard(value: boolean): void;
+  openFindStationModal(): void;
 }) {
   const [language, setLanguage] = useState<Language>(Language.EN);
   const { t, i18n } = useTranslation();
@@ -41,6 +44,12 @@ export function TopPannel({
         </TitleWrapper>
       </div>
       <ButtonsWrapper>
+        <IconButton
+          value={editDashboard}
+          onClick={openFindStationModal}
+          Icon={<LuMapPin />}
+          text={t("dashboard.addStationText")}
+        />
         <IconButton
           value={language === Language.EN}
           onClick={(value: boolean) =>

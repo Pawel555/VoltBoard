@@ -1,6 +1,4 @@
 import { useRef, useEffect } from "react";
-import styled from "styled-components";
-import { IconButton } from "./IconButton";
 import { RxCross1 } from "react-icons/rx";
 import { ModalCloseButton, ModalHeader, StyledModal } from "./styles";
 

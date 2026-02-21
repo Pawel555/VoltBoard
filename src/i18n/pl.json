@@ -2,6 +2,7 @@
   "dashboard": {
     "title": "Centrum ładowania EV",
     "subtitle": "Monitoruj i zarządzaj swoim panelem ładowania",
+    "modalTitle": "Znajdź stację ładowania",
     "addStationText": "Dodaj stację"
   }
 }
