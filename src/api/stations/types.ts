@@ -28,7 +28,7 @@ export interface StationDto {
 }
 
 export type FetchStationsParams = {
-  maxresults: number;
+  maxresults?: number;
   // Set to true to remove reference data objects from output (just returns IDs for common reference data such as DataProvider etc).
   compact: boolean;
   //Set to false to get a smaller result set with null items removed.
@@ -37,4 +37,7 @@ export type FetchStationsParams = {
   countryid?: string[];
   // 2-character ISO Country code to filter to one specific country
   countrycode?: string;
+  // Optionally filter results by a max distance from the given latitude/longitude
+  distance?: number;
+  distanceunit?: "km" | "miles";
 };

@@ -18,10 +18,22 @@ import {
 
 interface StationListProps {
   stations: Station[];
+  isLoading: boolean;
 }
 
-export const StationList = ({ stations }: StationListProps) => {
+export const StationList = ({ stations, isLoading }: StationListProps) => {
   const { t } = useTranslation();
+
+  if (isLoading) {
+    return (
+      <ListWrapper>
+        {[...Array(6)].map((_, i) => (
+          <Card key={i} $isLoading={true} />
+        ))}
+      </ListWrapper>
+    );
+  }
+
   return (
     <ListWrapper>
       {stations.map((station) => (

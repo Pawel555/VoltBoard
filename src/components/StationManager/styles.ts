@@ -1,25 +1,38 @@
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 
 export const ListWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  max-width: 600px;
-  width: 100%;
+  width: 550px;
   padding-right: 8px;
   overflow-y: auto;
   flex-grow: 1;
 `;
+const pulse = keyframes`
+  0% { opacity: 0.5; }
+  50% { opacity: 1; }
+  100% { opacity: 0.5; }
+`;
 
-export const Card = styled.div`
-  background-color: ${({ theme }) => theme.colors.darkGray};
+export const Card = styled.div<{ $isLoading?: boolean }>`
+  background-color: ${({ theme, $isLoading }) =>
+    $isLoading ? theme.colors.textGray : theme.colors.darkGray};
   border: 1px solid ${({ theme }) => theme.colors.border};
+  min-height: 120px;
+  min-width: 480px;
   text-align: left;
   border-radius: 16px;
   padding: 16px 20px;
   display: flex;
   justify-content: space-between;
   transition: all 0.2s ease-in-out;
+  animation: ${({ $isLoading }) =>
+    $isLoading
+      ? css`
+          ${pulse} 1.5s infinite ease-in-out
+        `
+      : "none"};
 
   &:hover {
     border-color: ${({ theme }) => theme.colors.accent};
@@ -87,4 +100,63 @@ export const IconTextWrpper = styled.div`
   align-items: center;
   flex-direction: row;
   gap: 4px;
+`;
+
+// Search
+export const SearchContainer = styled.div`
+  background: ${({ theme }) => theme.colors.darkGray};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 20px;
+  padding: 16px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+`;
+
+export const HeaderRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: ${({ theme }) => theme.colors.accent};
+  font-size: ${({ theme }) => theme.fontSizes.medium};
+`;
+
+export const InputGroup = styled.div`
+  display: flex;
+  gap: 12px;
+  align-items: center;
+`;
+
+export const InputWrapper = styled.div`
+  position: relative;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  background: ${({ theme }) => theme.colors.inputBackground};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: 12px;
+  padding: 0 16px;
+  transition: border-color 0.2s;
+
+  &:focus-within {
+    border-color: ${({ theme }) => theme.colors.accent};
+  }
+`;
+
+export const StyledInput = styled.input`
+  background: transparent;
+  border: none;
+  color: ${({ theme }) => theme.colors.white};
+  padding: 14px 0;
+  padding-left: 10px;
+  width: 100%;
+  outline: none;
+  font-size: ${({ theme }) => theme.fontSizes.small};
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.textGray};
+  }
 `;
