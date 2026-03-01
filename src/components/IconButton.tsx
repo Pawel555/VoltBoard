@@ -3,7 +3,7 @@ import { IconButtonStyled } from "./styles";
 type IconButtonProps = {
   value: boolean;
   onClick(value: boolean): void;
-  Icon: React.ReactElement<SVGSVGElement>;
+  icon: React.ReactElement<SVGSVGElement>;
   text?: string;
   useActiveStyle?: boolean;
   className?: string;
@@ -12,7 +12,7 @@ type IconButtonProps = {
 export function IconButton({
   value,
   onClick,
-  Icon,
+  icon,
   text,
   useActiveStyle,
   className,
@@ -23,7 +23,7 @@ export function IconButton({
       $active={useActiveStyle ? value : false}
       onClick={() => onClick(!value)}
     >
-      {Icon}
+      {icon}
       {text && <span>{text}</span>}
     </IconButtonStyled>
   );

@@ -5,6 +5,9 @@
     "modalTitle": "Znajdź stację ładowania",
     "addStationText": "Dodaj stację",
     "busy": "Zajęta",
-    "available": "Dostępna"
+    "available": "Dostępna",
+    "searchTitle": "Znajdź najbliższe stacje ładowania",
+    "searchPlaceholder": "Wprowadź lokalizację lub adres...",
+    "searchButton": "Znajdź"
   }
 }

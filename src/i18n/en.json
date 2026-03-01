@@ -5,6 +5,9 @@
     "modalTitle": "Find a charging station",
     "addStationText": "Add station",
     "busy": "Busy",
-    "available": "Available"
+    "available": "Available",
+    "searchTitle": "Find Nearest Stations",
+    "searchPlaceholder": "Enter your location or address...",
+    "searchButton": "Find"
   }
 }

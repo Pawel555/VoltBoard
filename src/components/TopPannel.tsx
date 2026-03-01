@@ -47,7 +47,7 @@ export function TopPannel({
         <IconButton
           value={editDashboard}
           onClick={openFindStationModal}
-          Icon={<LuMapPin />}
+          icon={<LuMapPin />}
           text={t("dashboard.addStationText")}
         />
         <IconButton
@@ -55,13 +55,13 @@ export function TopPannel({
           onClick={(value: boolean) =>
             setLanguage(value ? Language.EN : Language.PL)
           }
-          Icon={<IoLanguage />}
+          icon={<IoLanguage />}
           text={language.toUpperCase()}
         />
         <IconButton
           value={editDashboard}
           onClick={setEditDashboard}
-          Icon={<SettingsIcon />}
+          icon={<SettingsIcon />}
           useActiveStyle
         />
       </ButtonsWrapper>

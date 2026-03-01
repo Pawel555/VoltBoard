@@ -6,6 +6,7 @@ import { useState } from "react";
 import { TopPannel } from "./TopPannel";
 import { Modal } from "./Modal";
 import { useTranslation } from "react-i18next";
+import { StationManager } from "./StationManager/StationManager";
 
 export function Dashboard() {
   const { t } = useTranslation();
@@ -35,7 +36,9 @@ export function Dashboard() {
         isOpen={openFindStationModal}
         onClose={() => setOpenFindStationModal(false)}
         title={t("dashboard.modalTitle")}
-      ></Modal>
+      >
+        {openFindStationModal && <StationManager />}
+      </Modal>
       <TopPannel
         editDashboard={editDashboard}
         setEditDashboard={setEditDashboard}

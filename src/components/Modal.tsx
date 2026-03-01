@@ -37,8 +37,8 @@ export const Modal = ({ isOpen, onClose, title, children }: ModalProps) => {
         <h3>{title}</h3>
         <ModalCloseButton
           onClick={closeModal}
-          value={false}
-          Icon={<RxCross1 />}
+          value={true}
+          icon={<RxCross1 />}
         />
       </ModalHeader>
       {children}

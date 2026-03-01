@@ -13,6 +13,8 @@ export const darkTheme = {
     darkGray: "#1f2937",
     textGray: "#8a8d8e",
     orange: "#ffab00",
+
+    inputBackground: "#0f172a",
   },
   shadows: {
     glow: "0 0 15px rgba(0, 230, 118, 0.2)",
