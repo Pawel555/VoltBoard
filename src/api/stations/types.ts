@@ -40,4 +40,6 @@ export type FetchStationsParams = {
   // Optionally filter results by a max distance from the given latitude/longitude
   distance?: number;
   distanceunit?: "km" | "miles";
+  // Exact match on a given OCM POI ID (comma separated list)
+  chargepointid?: string;
 };

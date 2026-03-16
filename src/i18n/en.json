@@ -8,6 +8,7 @@
     "available": "Available",
     "searchTitle": "Find Nearest Stations",
     "searchPlaceholder": "Enter your location or address...",
-    "searchButton": "Find"
+    "searchButton": "Find",
+    "noStation": "No station found"
   }
 }

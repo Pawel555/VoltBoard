@@ -8,6 +8,7 @@
     "available": "Dostępna",
     "searchTitle": "Znajdź najbliższe stacje ładowania",
     "searchPlaceholder": "Wprowadź lokalizację lub adres...",
-    "searchButton": "Znajdź"
+    "searchButton": "Znajdź",
+    "noStation": "Nie znaleziono stacji"
   }
 }

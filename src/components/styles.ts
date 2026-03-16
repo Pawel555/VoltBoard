@@ -16,8 +16,8 @@ export const DashboardWrapper = styled.div`
 
 export const WidgetWrapper = styled.div<{ $editStyle?: boolean }>`
   display: flex;
-  padding: 16px;
   border-radius: 16px;
+  overflow: hidden;
   opacity: 1;
   border: 1px solid
     ${({ $editStyle, theme }) =>

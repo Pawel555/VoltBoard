@@ -6,7 +6,7 @@ import { StationSearch } from "./Search";
 
 export function StationManager() {
   const { data: stations, isLoading } = useQuery({
-    queryKey: ["stations"],
+    queryKey: ["listStations"],
     queryFn: () =>
       fetchStations({
         compact: false,
