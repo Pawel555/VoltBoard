@@ -12,8 +12,9 @@ import { useTranslation } from "react-i18next";
 export function StationManager({
   saveSelectedStations,
 }: {
-  saveSelectedStations: (stations: Station[]) => void;
+  saveSelectedStations: (stationsIds: (string | number)[]) => void;
 }) {
+  //TODO: handle added widget in selected station list
   const [stationsToAdd, setStationsToAdd] = useState<Station[]>([]);
   const { t } = useTranslation();
   const { data: stations, isLoading } = useQuery({
@@ -51,7 +52,7 @@ export function StationManager({
         value={selectedStationIds.length > 0}
         text={t("dashboard.addButton")}
         onClick={() => {
-          saveSelectedStations(stationsToAdd);
+          saveSelectedStations(selectedStationIds);
         }}
         icon={<IoIosAdd />}
         useActiveStyle

@@ -1,8 +1,11 @@
-export type GridPosition = {
-  x: number;
-  y: number;
+export type WidgetDimensions = {
   w: number;
   h: number;
+};
+
+export type GridPosition = WidgetDimensions & {
+  x: number;
+  y: number;
 };
 
 export enum WidgetType {
@@ -12,8 +15,8 @@ export enum WidgetType {
 }
 
 export type Widget = {
-  id: number;
+  id: number | string;
   type: WidgetType;
-  resourceId: string;
+  resourceId: string | number;
   gridPosition: GridPosition;
 };
