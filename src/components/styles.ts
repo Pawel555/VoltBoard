@@ -80,14 +80,15 @@ export const IconButtonStyled = styled.button<{ $active: boolean }>`
   background-color: ${({ theme }) => theme.colors.darkGray};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 10px;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
 
   transition:
     background-color 1s ease,
     transform 1s ease;
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.borderHover};
+    border-color: ${({ theme, disabled }) =>
+      disabled ? theme.colors.border : theme.colors.borderHover};
   }
 
   svg {

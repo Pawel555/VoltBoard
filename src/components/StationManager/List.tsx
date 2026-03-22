@@ -5,9 +5,16 @@ import { StationCard } from "./StationCard";
 interface StationListProps {
   stations: Station[];
   isLoading: boolean;
+  onStationClick?(station: Station): void;
+  selectedStationIds?: (number | string)[];
 }
 
-export const StationList = ({ stations, isLoading }: StationListProps) => {
+export const StationList = ({
+  stations,
+  isLoading,
+  onStationClick,
+  selectedStationIds,
+}: StationListProps) => {
   if (isLoading) {
     return (
       <ListWrapper>
@@ -27,7 +34,15 @@ export const StationList = ({ stations, isLoading }: StationListProps) => {
   return (
     <ListWrapper>
       {stations.map((station) => (
-        <StationCard key={station.id} station={station} isLoading={false} />
+        <StationCard
+          key={station.id}
+          station={station}
+          isLoading={false}
+          onClick={() => onStationClick && onStationClick(station)}
+          selected={
+            onStationClick ? selectedStationIds?.includes(station.id) : false
+          }
+        />
       ))}
     </ListWrapper>
   );

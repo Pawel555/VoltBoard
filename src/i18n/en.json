@@ -9,6 +9,7 @@
     "searchTitle": "Find Nearest Stations",
     "searchPlaceholder": "Enter your location or address...",
     "searchButton": "Find",
-    "noStation": "No station found"
+    "noStation": "No station found",
+    "addButton": "Add"
   }
 }

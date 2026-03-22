@@ -15,18 +15,33 @@ const pulse = keyframes`
   100% { opacity: 0.5; }
 `;
 
-export const Card = styled.div<{ $isLoading?: boolean }>`
+const hoverEffect = css`
+  border-color: ${({ theme }) => theme.colors.accent};
+  background-color: ${({ theme }) =>
+    `color-mix(in srgb, ${theme.colors.darkGray}, transparent 80%)`};
+`;
+
+export const Card = styled.div<{
+  $isLoading?: boolean;
+  $disableHover?: boolean;
+  $selected?: boolean;
+  $minWidth?: number;
+  $minHeight?: number;
+}>`
   background-color: ${({ theme, $isLoading }) =>
     $isLoading ? theme.colors.textGray : theme.colors.darkGray};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  min-height: 120px;
-  min-width: 480px;
+
+  ${({ $minWidth }) => $minWidth && `min-width: ${$minWidth}px;`}
+  ${({ $minHeight }) => $minHeight && `min-height: ${$minHeight}px;`}
+  width: 100%;
   text-align: left;
   border-radius: 16px;
   padding: 16px 20px;
   display: flex;
   justify-content: space-between;
   transition: all 0.2s ease-in-out;
+  cursor: ${({ onClick }) => (onClick ? "pointer" : "default")};
   animation: ${({ $isLoading }) =>
     $isLoading
       ? css`
@@ -34,11 +49,15 @@ export const Card = styled.div<{ $isLoading?: boolean }>`
         `
       : "none"};
 
-  &:hover {
-    border-color: ${({ theme }) => theme.colors.accent};
-    background-color: ${({ theme }) =>
-      `color-mix(in srgb, ${theme.colors.darkGray}, transparent 80%)`};
-  }
+  ${({ $disableHover }) =>
+    !$disableHover &&
+    css`
+      &:hover {
+        ${hoverEffect}
+      }
+    `}
+
+  ${({ $selected }) => $selected && hoverEffect}
 `;
 
 export const MainInfo = styled.div`

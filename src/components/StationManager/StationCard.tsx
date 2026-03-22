@@ -18,17 +18,21 @@ import {
 type StationListProps = {
   station: Station;
   disableHover?: boolean;
+  selected?: boolean;
   isLoading?: boolean;
   minWidth?: number;
   minHeight?: number;
+  onClick?(): void;
 };
 
 export const StationCard = ({
   station,
   disableHover,
+  selected,
   isLoading,
   minWidth,
   minHeight,
+  onClick,
 }: StationListProps) => {
   const { t } = useTranslation();
 
@@ -36,9 +40,11 @@ export const StationCard = ({
     <Card
       key={station.id}
       $disableHover={disableHover}
+      $selected={selected}
       $isLoading={isLoading}
       $minWidth={minWidth}
       $minHeight={minHeight}
+      onClick={onClick}
     >
       <MainInfo>
         <Title>{station.name}</Title>

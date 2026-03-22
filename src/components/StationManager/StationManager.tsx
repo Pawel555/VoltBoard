@@ -3,8 +3,19 @@ import { StationList } from "./List";
 import { fetchStations } from "../../api/stations/api";
 import { useQuery } from "@tanstack/react-query";
 import { StationSearch } from "./Search";
+import { IconButton } from "../IconButton";
+import { IoIosAdd } from "react-icons/io";
+import { useMemo, useState } from "react";
+import type { Station } from "../../types/stations";
+import { useTranslation } from "react-i18next";
 
-export function StationManager() {
+export function StationManager({
+  saveSelectedStations,
+}: {
+  saveSelectedStations: (stations: Station[]) => void;
+}) {
+  const [stationsToAdd, setStationsToAdd] = useState<Station[]>([]);
+  const { t } = useTranslation();
   const { data: stations, isLoading } = useQuery({
     queryKey: ["listStations"],
     queryFn: () =>
@@ -15,13 +26,44 @@ export function StationManager() {
       }),
   });
 
+  const selectedStationIds = useMemo(() => {
+    return stationsToAdd.map((station) => station.id);
+  }, [stationsToAdd]);
+
+  const handleToggleStation = (station: Station) => {
+    setStationsToAdd((prevStations) =>
+      prevStations.map((station) => station.id).includes(station.id)
+        ? prevStations.filter((s) => s.id !== station.id)
+        : [...prevStations, station],
+    );
+  };
+
   return (
     <StationManagerWrapper>
       <StationSearch onSearch={() => {}}></StationSearch>
-      <StationList stations={stations || []} isLoading={isLoading} />
+      <StationList
+        stations={stations || []}
+        selectedStationIds={selectedStationIds}
+        isLoading={isLoading}
+        onStationClick={handleToggleStation}
+      />
+      <StyledButton
+        value={selectedStationIds.length > 0}
+        text={t("dashboard.addButton")}
+        onClick={() => {
+          saveSelectedStations(stationsToAdd);
+        }}
+        icon={<IoIosAdd />}
+        useActiveStyle
+        disabled={stationsToAdd.length === 0}
+      />
     </StationManagerWrapper>
   );
 }
+
+const StyledButton = styled(IconButton)`
+  margin-top: 20px;
+`;
 
 const StationManagerWrapper = styled.div`
   display: flex;

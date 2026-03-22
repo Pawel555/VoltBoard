@@ -7,6 +7,7 @@ type IconButtonProps = {
   text?: string;
   useActiveStyle?: boolean;
   className?: string;
+  disabled?: boolean;
 };
 
 export function IconButton({
@@ -16,12 +17,14 @@ export function IconButton({
   text,
   useActiveStyle,
   className,
+  disabled,
 }: IconButtonProps) {
   return (
     <IconButtonStyled
       className={className}
       $active={useActiveStyle ? value : false}
       onClick={() => onClick(!value)}
+      disabled={disabled}
     >
       {icon}
       {text && <span>{text}</span>}
