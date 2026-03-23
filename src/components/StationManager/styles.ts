@@ -41,7 +41,7 @@ export const Card = styled.div<{
   display: flex;
   justify-content: space-between;
   transition: all 0.2s ease-in-out;
-  cursor: ${({ onClick }) => (onClick ? "pointer" : "default")};
+  cursor: ${({ onClick }) => (onClick ? "pointer" : "inherit")};
   animation: ${({ $isLoading }) =>
     $isLoading
       ? css`

@@ -61,6 +61,11 @@ export function TopPannel({
         <IconButton
           value={editDashboard}
           onClick={setEditDashboard}
+          text={
+            editDashboard
+              ? t("dashboard.saveButton")
+              : t("dashboard.editButton")
+          }
           icon={<SettingsIcon />}
           useActiveStyle
         />

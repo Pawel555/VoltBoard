@@ -1,7 +1,13 @@
 import GridLayout, { type Layout } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
-import { DashboardWrapper, WidgetWrapper } from "./styles";
+import {
+  DashboardWrapper,
+  WidgetWrapper,
+  DeleteButtonWrapper,
+  DeleteIcon,
+  DeleteButton,
+} from "./styles";
 import { useState } from "react";
 import { TopPannel } from "./TopPannel";
 import { Modal } from "./Modal";
@@ -38,14 +44,24 @@ export function Dashboard() {
       }),
   });
 
-  const renderWidget = () => {
-    // TODO: Map only whe widget content is changed,
+  const deleteWidget = (widgetId: string | number) => {
+    const updatedWidgets = widgets.filter((w) => w.id !== widgetId);
+    setWidgets(updatedWidgets);
+  };
 
+  const renderWidget = () => {
     return widgets.map((widget) => {
       const widgetData = stations?.find((s) => s.id === widget.resourceId);
 
       return (
         <WidgetWrapper key={widget.id} $editStyle={editDashboard}>
+          {editDashboard && (
+            <DeleteButtonWrapper>
+              <DeleteButton onClick={() => deleteWidget(widget.id)}>
+                <DeleteIcon />
+              </DeleteButton>
+            </DeleteButtonWrapper>
+          )}
           <WidgetBody
             widget={widget}
             widgetData={widgetData}
@@ -57,7 +73,6 @@ export function Dashboard() {
   };
 
   const onLayoutChange = (newLayout: Layout) => {
-    //TODO: add saving in local storage only when position is changed
     const updatedWidgets = widgets.map((w) => {
       const layoutItem = newLayout.find((l) => l.i === w.id.toString());
       if (layoutItem) {
@@ -101,6 +116,15 @@ export function Dashboard() {
     }
   };
 
+  const handleEditDashboard = (value: boolean) => {
+    if (value) {
+      setEditDashboard(true);
+    } else {
+      setEditDashboard(false);
+      saveWidgets(widgets);
+    }
+  };
+
   return (
     <DashboardWrapper>
       <Modal
@@ -119,12 +143,11 @@ export function Dashboard() {
       </Modal>
       <TopPannel
         editDashboard={editDashboard}
-        setEditDashboard={setEditDashboard}
+        setEditDashboard={handleEditDashboard}
         openFindStationModal={() => setOpenFindStationModal(true)}
       />
       <GridLayout
         className="layout"
-        // TODO:  map only whe widget grid position is changed,
         layout={widgets.map((w) => ({
           i: w.id.toString(),
           x: w.gridPosition.x,

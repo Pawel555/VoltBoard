@@ -1,5 +1,3 @@
-// TODO: This file contains types related to the station data structure on API. Check if should be mapped to diffrent simpler type
-
 export type Connection = {
   ID: number;
   StatusType: {

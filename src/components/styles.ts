@@ -1,5 +1,6 @@
 import { HiOutlineLightningBolt } from "react-icons/hi";
 import { IoSettingsOutline } from "react-icons/io5";
+import { MdDeleteOutline } from "react-icons/md";
 import styled from "styled-components";
 import { IconButton } from "./IconButton";
 
@@ -26,6 +27,47 @@ export const WidgetWrapper = styled.div<{ $editStyle?: boolean }>`
         : theme.colors.border};
 
   cursor: ${({ $editStyle }) => ($editStyle ? "move" : "default")};
+`;
+
+export const DeleteButtonWrapper = styled.div`
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const DeleteButton = styled.button`
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid ${({ theme }) => theme.colors.danger};
+  border-radius: 50%;
+
+  transition: all 0.2s ease;
+
+  &:hover {
+    opacity: 0.9;
+    transform: scale(1.05);
+    border-color: ${({ theme }) => theme.colors.danger};
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;
+
+export const DeleteIcon = styled(MdDeleteOutline)`
+  width: 20px;
+  height: 20px;
+  color: ${({ theme }) => theme.colors.danger};
 `;
 
 //TopPannel

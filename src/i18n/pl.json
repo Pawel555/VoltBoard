@@ -10,6 +10,8 @@
     "searchPlaceholder": "Wprowadź lokalizację lub adres...",
     "searchButton": "Znajdź",
     "noStation": "Nie znaleziono stacji",
-    "addButton": "Dodaj"
+    "addButton": "Dodaj",
+    "saveButton": "Zapisz",
+    "editButton": "Edytuj"
   }
 }
