@@ -8,7 +8,7 @@ import {
   DeleteIcon,
   DeleteButton,
 } from "./styles";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { TopPannel } from "./TopPannel";
 import { Modal } from "./Modal";
 import { useTranslation } from "react-i18next";
@@ -31,7 +31,10 @@ export function Dashboard() {
     getWidgets() || initialWidgetMock,
   );
 
-  const widgetResourceIds = widgets.map((w) => w.resourceId);
+  const widgetResourceIds = useMemo(
+    () => widgets.map((w) => w.resourceId),
+    [widgets],
+  );
 
   const { data: stations, isLoading } = useQuery({
     queryKey: ["stations"],
@@ -138,6 +141,7 @@ export function Dashboard() {
               addNewWidgets(stationsIds, WidgetType.STATION);
               setOpenFindStationModal(false);
             }}
+            widgetStations={widgetResourceIds}
           />
         )}
       </Modal>

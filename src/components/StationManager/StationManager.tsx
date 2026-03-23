@@ -11,10 +11,11 @@ import { useTranslation } from "react-i18next";
 
 export function StationManager({
   saveSelectedStations,
+  widgetStations,
 }: {
   saveSelectedStations: (stationsIds: (string | number)[]) => void;
+  widgetStations: (number | string)[];
 }) {
-  //TODO: handle added widget in selected station list
   const [stationsToAdd, setStationsToAdd] = useState<Station[]>([]);
   const { t } = useTranslation();
   const { data: stations, isLoading } = useQuery({
@@ -28,8 +29,13 @@ export function StationManager({
   });
 
   const selectedStationIds = useMemo(() => {
-    return stationsToAdd.map((station) => station.id);
-  }, [stationsToAdd]);
+    return Array.from(
+      new Set([
+        ...stationsToAdd.map((station) => station.id),
+        ...widgetStations,
+      ]),
+    );
+  }, [stationsToAdd, widgetStations]);
 
   const handleToggleStation = (station: Station) => {
     setStationsToAdd((prevStations) =>
