@@ -58,7 +58,10 @@ export function StationManager({
         value={selectedStationIds.length > 0}
         text={t("dashboard.addButton")}
         onClick={() => {
-          saveSelectedStations(selectedStationIds);
+          const newSelectedStationIds = selectedStationIds.filter(
+            (stationId) => !widgetStations.includes(stationId),
+          );
+          saveSelectedStations(newSelectedStationIds);
         }}
         icon={<IoIosAdd />}
         useActiveStyle

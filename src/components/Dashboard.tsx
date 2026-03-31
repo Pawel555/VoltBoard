@@ -37,7 +37,7 @@ export function Dashboard() {
   );
 
   const { data: stations, isLoading } = useQuery({
-    queryKey: ["stations"],
+    queryKey: ["stations", widgetResourceIds],
     queryFn: () =>
       fetchStations({
         compact: false,
