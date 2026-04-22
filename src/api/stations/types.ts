@@ -40,4 +40,8 @@ export type FetchStationsParams = {
   distanceunit?: "km" | "miles";
   // Exact match on a given OCM POI ID (comma separated list)
   chargepointid?: string;
+  //Longitude for distance calculation and filtering
+  longitude?: number;
+  //Latitude for distance calculation and filtering
+  latitude?: number;
 };

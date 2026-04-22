@@ -153,15 +153,16 @@ export const InputWrapper = styled.div`
   position: relative;
   flex-grow: 1;
   display: flex;
-  align-items: center;
   background: ${({ theme }) => theme.colors.inputBackground};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 12px;
-  padding: 0 16px;
   transition: border-color 0.2s;
 
-  &:focus-within {
-    border-color: ${({ theme }) => theme.colors.accent};
+  gmp-place-autocomplete {
+    background: transparent;
+    width: 100%;
+    border: none;
+    border-radius: 12px;
   }
 `;
 

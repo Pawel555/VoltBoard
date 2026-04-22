@@ -8,6 +8,7 @@ import { IoIosAdd } from "react-icons/io";
 import { useMemo, useState } from "react";
 import type { Station } from "../../types/stations";
 import { useTranslation } from "react-i18next";
+import type { Coordinates } from "../../types/common";
 
 export function StationManager({
   saveSelectedStations,
@@ -17,14 +18,20 @@ export function StationManager({
   widgetStations: (number | string)[];
 }) {
   const [stationsToAdd, setStationsToAdd] = useState<Station[]>([]);
+  const [location, setLocation] = useState<Coordinates>({
+    lat: 50,
+    lng: 19,
+  });
+
   const { t } = useTranslation();
   const { data: stations, isLoading } = useQuery({
-    queryKey: ["listStations"],
+    queryKey: ["listStations", location.lat, location.lng],
     queryFn: () =>
       fetchStations({
         compact: false,
         verbose: false,
-        countrycode: "PL",
+        longitude: location.lng,
+        latitude: location.lat,
       }),
   });
 
@@ -47,7 +54,7 @@ export function StationManager({
 
   return (
     <StationManagerWrapper>
-      <StationSearch onSearch={() => {}}></StationSearch>
+      <StationSearch onSearch={(location) => setLocation(location)} />
       <StationList
         stations={stations || []}
         selectedStationIds={selectedStationIds}
