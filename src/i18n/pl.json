@@ -13,5 +13,11 @@
     "addButton": "Dodaj",
     "saveButton": "Zapisz",
     "editButton": "Edytuj"
+  },
+    "mapManager": {
+      "addMap": "Dodaj mapę",
+      "chooseLocation": "Wybierz lokalizację lub wykryj ją automatycznie, a następnie ustaw odległość, aby zobaczyć pobliskie stacje na mapie.",
+      "distanceLabel": "Dystans: {{distance}} km",
+      "myLocation": "Moja lokalizacja"
   }
 }

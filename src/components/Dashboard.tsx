@@ -20,12 +20,14 @@ import { fetchStations } from "../api/stations/api";
 import { initialWidgetMock } from "../mock/dashboard.mock";
 import { getWidgets, saveWidgets } from "../utils/storage";
 import { WIDGET_DEFAULT_DIMENSIONS } from "../constants/dashboard";
+import { MapManager } from "./MapManager";
 
 export function Dashboard() {
   const { t } = useTranslation();
 
   const [editDashboard, setEditDashboard] = useState(false);
   const [openFindStationModal, setOpenFindStationModal] = useState(false);
+  const [openAddMapModal, setOpenAddMapModal] = useState(false);
 
   const [widgets, setWidgets] = useState<Widget[]>(
     getWidgets() || initialWidgetMock,
@@ -128,27 +130,49 @@ export function Dashboard() {
     }
   };
 
+  const renderStationModal = () => (
+    <Modal
+      isOpen={openFindStationModal}
+      onClose={() => setOpenFindStationModal(false)}
+      title={t("dashboard.modalTitle")}
+    >
+      {openFindStationModal && (
+        <StationManager
+          saveSelectedStations={(stationsIds: (string | number)[]) => {
+            addNewWidgets(stationsIds, WidgetType.STATION);
+            setOpenFindStationModal(false);
+          }}
+          widgetStations={widgetResourceIds}
+        />
+      )}
+    </Modal>
+  );
+
+  const renderAddMapModal = () => (
+    <Modal
+      isOpen={openAddMapModal}
+      onClose={() => setOpenAddMapModal(false)}
+      title={t("mapManager.addMap")}
+    >
+      {openAddMapModal && (
+        <MapManager
+          addMap={() => {
+            // TODO: implement add map logic
+          }}
+        />
+      )}
+    </Modal>
+  );
+
   return (
     <DashboardWrapper>
-      <Modal
-        isOpen={openFindStationModal}
-        onClose={() => setOpenFindStationModal(false)}
-        title={t("dashboard.modalTitle")}
-      >
-        {openFindStationModal && (
-          <StationManager
-            saveSelectedStations={(stationsIds: (string | number)[]) => {
-              addNewWidgets(stationsIds, WidgetType.STATION);
-              setOpenFindStationModal(false);
-            }}
-            widgetStations={widgetResourceIds}
-          />
-        )}
-      </Modal>
+      {renderStationModal()}
+      {renderAddMapModal()}
       <TopPannel
         editDashboard={editDashboard}
         setEditDashboard={handleEditDashboard}
         openFindStationModal={() => setOpenFindStationModal(true)}
+        openAddMapModal={() => setOpenAddMapModal(true)}
       />
       <GridLayout
         className="layout"

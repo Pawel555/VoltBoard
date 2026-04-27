@@ -2,13 +2,13 @@ import styled from "styled-components";
 import { StationList } from "./List";
 import { fetchStations } from "../../api/stations/api";
 import { useQuery } from "@tanstack/react-query";
-import { StationSearch } from "./Search";
 import { IconButton } from "../IconButton";
-import { IoIosAdd } from "react-icons/io";
+import { IoIosAdd, IoIosSearch } from "react-icons/io";
 import { useMemo, useState } from "react";
 import type { Station } from "../../types/stations";
 import { useTranslation } from "react-i18next";
 import type { Coordinates } from "../../types/common";
+import { LocationSearch } from "../LocationSearch";
 
 export function StationManager({
   saveSelectedStations,
@@ -54,7 +54,12 @@ export function StationManager({
 
   return (
     <StationManagerWrapper>
-      <StationSearch onSearch={(location) => setLocation(location)} />
+      <LocationSearch
+        onSearch={(location) => setLocation(location)}
+        buttonText={t("dashboard.searchButton")}
+        searchTitle={t("dashboard.searchTitle")}
+        buttonIcon={<IoIosSearch />}
+      />
       <StationList
         stations={stations || []}
         selectedStationIds={selectedStationIds}

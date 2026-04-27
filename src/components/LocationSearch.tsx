@@ -1,18 +1,29 @@
 import { useRef, useState, useEffect } from "react";
 import { LuNavigation } from "react-icons/lu";
-import { IoIosSearch } from "react-icons/io";
-import { useTranslation } from "react-i18next";
 
-import { darkTheme } from "../../styles/theme";
-import { IconButton } from "../IconButton";
-import { HeaderRow, InputGroup, InputWrapper, SearchContainer } from "./styles";
-import type { Coordinates } from "../../types/common";
+import type { Coordinates } from "../types/common";
+import {
+  HeaderRow,
+  InputGroup,
+  InputWrapper,
+  SearchContainer,
+} from "./LocationSearch.styles";
+import { IconButton } from "./IconButton";
+import { darkTheme } from "../styles/theme";
 
-type StationSearchProps = {
+type LocationSearchProps = {
   onSearch: (value: Coordinates) => void;
+  buttonText: string;
+  buttonIcon: React.ReactElement<SVGSVGElement>;
+  searchTitle?: string;
 };
 
-export function StationSearch({ onSearch }: StationSearchProps) {
+export function LocationSearch({
+  onSearch,
+  buttonText,
+  buttonIcon,
+  searchTitle,
+}: LocationSearchProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [location, setLocation] = useState<Coordinates>({
     lat: 50,
@@ -50,7 +61,6 @@ export function StationSearch({ onSearch }: StationSearchProps) {
   useEffect(() => {
     initSearch();
   }, []);
-  const { t } = useTranslation();
 
   const handleSearch = () => {
     onSearch(location);
@@ -58,19 +68,21 @@ export function StationSearch({ onSearch }: StationSearchProps) {
 
   return (
     <SearchContainer>
-      <HeaderRow>
-        <LuNavigation size={18} color={darkTheme.colors.accent} />
-        <span>{t("dashboard.searchTitle")}</span>
-      </HeaderRow>
+      {searchTitle && (
+        <HeaderRow>
+          <LuNavigation size={18} color={darkTheme.colors.accent} />
+          <span>{searchTitle}</span>
+        </HeaderRow>
+      )}
 
       <InputGroup>
         <InputWrapper ref={containerRef} />
 
         <IconButton
-          text={t("dashboard.searchButton")}
+          text={buttonText}
           onClick={handleSearch}
           value={true}
-          icon={<IoIosSearch />}
+          icon={buttonIcon}
           useActiveStyle
         />
       </InputGroup>

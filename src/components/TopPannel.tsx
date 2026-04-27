@@ -7,7 +7,7 @@ import {
   SettingsIcon,
   TitleWrapper,
 } from "./styles";
-import { IoLanguage } from "react-icons/io5";
+import { IoLanguage, IoMapSharp } from "react-icons/io5";
 import { LuMapPin } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
 
@@ -16,15 +16,19 @@ enum Language {
   PL = "pl",
 }
 
+type TopPanelProps = {
+  editDashboard: boolean;
+  setEditDashboard(value: boolean): void;
+  openFindStationModal(): void;
+  openAddMapModal(): void;
+};
+
 export function TopPannel({
   editDashboard,
   setEditDashboard,
   openFindStationModal,
-}: {
-  editDashboard: boolean;
-  setEditDashboard(value: boolean): void;
-  openFindStationModal(): void;
-}) {
+  openAddMapModal,
+}: TopPanelProps) {
   const [language, setLanguage] = useState<Language>(Language.EN);
   const { t, i18n } = useTranslation();
 
@@ -44,6 +48,12 @@ export function TopPannel({
         </TitleWrapper>
       </div>
       <ButtonsWrapper>
+        <IconButton
+          value={editDashboard}
+          onClick={openAddMapModal}
+          icon={<IoMapSharp />}
+          text={"Add map"}
+        />
         <IconButton
           value={editDashboard}
           onClick={openFindStationModal}
