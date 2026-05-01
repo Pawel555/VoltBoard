@@ -25,7 +25,7 @@ import {
   saveWidgets,
 } from "../utils/storage";
 import { WIDGET_DEFAULT_DIMENSIONS } from "../constants/dashboard";
-import { MapManager } from "./MapManager";
+import { MapManager } from "./MapManager/MapManager";
 
 export function Dashboard() {
   const { t } = useTranslation();

@@ -1,8 +1,6 @@
-import { LocationSearch } from "./LocationSearch";
+import { LocationSearch } from "../LocationSearch";
 import { useState } from "react";
-import type { Coordinates, LocationData } from "../types/common";
 import { LuMapPin } from "react-icons/lu";
-import { IconButton } from "./IconButton";
 import { IoIosAdd } from "react-icons/io";
 import { useTranslation } from "react-i18next";
 import {
@@ -11,6 +9,9 @@ import {
   DistanceInputWrapper,
 } from "./styles";
 import { useQuery } from "@tanstack/react-query";
+import { IconButton } from "../IconButton";
+import type { Coordinates, LocationData } from "../../types/common";
+import { INITIAL_LOCATION } from "../../constants/locations";
 
 export function MapManager({
   addMap,
@@ -96,8 +97,8 @@ export function MapManager({
           onClick={() => {
             addMap(distance, {
               locationString: locationString || "",
-              latitude: userLocation?.lat || 0,
-              longitude: userLocation?.lng || 0,
+              latitude: userLocation?.lat || INITIAL_LOCATION.lat,
+              longitude: userLocation?.lng || INITIAL_LOCATION.lng,
             });
           }}
           icon={<IoIosAdd />}

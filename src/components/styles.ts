@@ -175,25 +175,3 @@ export const ModalHeader = styled.div`
 export const ModalCloseButton = styled(IconButton)`
   padding: 5px;
 `;
-
-//Map manager
-export const DistanceInputWrapper = styled.div`
-  display: flex;
-  gap: 8px;
-  width: 100%;
-  justify-content: left;
-  margin-bottom: 16px;
-`;
-
-export const AddMapButtonWrapper = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-`;
-
-export const AddMapSubtitle = styled.p`
-  opacity: 0.5;
-  margin-top: 12px;
-  margin-bottom: 12px;
-  text-align: left;
-`;

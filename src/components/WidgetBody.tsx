@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import type { Station } from "../types/stations";
-import type { Widget } from "../types/widgets";
+import { WidgetType, type Widget } from "../types/widgets";
 import { StationCard } from "./StationManager/StationCard";
 import { Card } from "./StationManager/styles";
 import { BsEvStationFill } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
+import { MapContainer } from "./MapManager/MapContainer";
 
 export function WidgetBody({
   widget,
@@ -18,7 +19,7 @@ export function WidgetBody({
   const { t } = useTranslation();
   const renderWidgetContent = (widget: Widget) => {
     switch (widget.type) {
-      case "STATION":
+      case WidgetType.STATION:
         if (isLoading) {
           return (
             <Card $isLoading $minHeight={120} $minWidth={480} $disableHover />
@@ -43,8 +44,8 @@ export function WidgetBody({
             )}
           </>
         );
-      case "MAP":
-        return <div>Map Widget - Resource ID: {widget.resourceId}</div>;
+      case WidgetType.MAP:
+        return <MapContainer />;
       default:
         return <div>Unknown Widget Type</div>;
     }

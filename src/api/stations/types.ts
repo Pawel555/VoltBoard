@@ -12,6 +12,8 @@ export type AddressInfo = {
   Town: string;
   StateOrProvince: string;
   CountryID: number;
+  Latitude: number;
+  Longitude: number;
 };
 
 export type StatusType = {

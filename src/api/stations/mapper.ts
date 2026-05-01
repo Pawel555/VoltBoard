@@ -11,4 +11,5 @@ export const mapStationDtoToStation = (dto: StationDto): Station => ({
   totalSlots: dto.Connections.length,
   powerKW: Math.max(...dto.Connections.map((c) => c.PowerKW), 0),
   isBusy: dto.StatusType?.IsOperational ? false : true,
+  location: { lat: dto.AddressInfo.Latitude, lng: dto.AddressInfo.Longitude },
 });
