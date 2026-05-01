@@ -18,7 +18,12 @@ import { WidgetType, type Widget } from "../types/widgets";
 import { useQuery } from "@tanstack/react-query";
 import { fetchStations } from "../api/stations/api";
 import { initialWidgetMock } from "../mock/dashboard.mock";
-import { getWidgets, saveWidgets } from "../utils/storage";
+import {
+  getWidgets,
+  saveDistance,
+  saveLocation,
+  saveWidgets,
+} from "../utils/storage";
 import { WIDGET_DEFAULT_DIMENSIONS } from "../constants/dashboard";
 import { MapManager } from "./MapManager";
 
@@ -118,6 +123,22 @@ export function Dashboard() {
           setWidgets((prevWidgets) => [...prevWidgets, ...newWidgets]);
         }
         break;
+      case WidgetType.MAP:
+        {
+          const newMapWidget: Widget = {
+            id: `${Date.now()}`,
+            type,
+            resourceId: 1,
+            gridPosition: {
+              x: 0,
+              y: Infinity,
+              ...WIDGET_DEFAULT_DIMENSIONS[WidgetType.MAP],
+            },
+          };
+          saveWidgets([...widgets, newMapWidget]);
+          setWidgets((prevWidgets) => [...prevWidgets, newMapWidget]);
+        }
+        break;
     }
   };
 
@@ -156,8 +177,11 @@ export function Dashboard() {
     >
       {openAddMapModal && (
         <MapManager
-          addMap={() => {
-            // TODO: implement add map logic
+          addMap={(distance, location) => {
+            saveLocation(location);
+            saveDistance(distance);
+            addNewWidgets([], WidgetType.MAP);
+            setOpenAddMapModal(false);
           }}
         />
       )}

@@ -1,6 +1,6 @@
 import { LocationSearch } from "./LocationSearch";
 import { useState } from "react";
-import type { Coordinates } from "../types/common";
+import type { Coordinates, LocationData } from "../types/common";
 import { LuMapPin } from "react-icons/lu";
 import { IconButton } from "./IconButton";
 import { IoIosAdd } from "react-icons/io";
@@ -12,14 +12,11 @@ import {
 } from "./styles";
 import { useQuery } from "@tanstack/react-query";
 
-interface LocationData {
-  locationString: string;
-  latitude: number;
-  longitude: number;
-}
-
-export function MapManager({ addMap }: { addMap: () => void }) {
-  //TODO:  Save distance and location in local storage
+export function MapManager({
+  addMap,
+}: {
+  addMap: (distance: string, location: LocationData) => void;
+}) {
   const [userLocation, setUserLocation] = useState<Coordinates>();
   const [locationString, setLocationString] = useState<string>();
   const [distance, setDistance] = useState("50");
@@ -96,7 +93,13 @@ export function MapManager({ addMap }: { addMap: () => void }) {
         <IconButton
           value={true}
           text={t("dashboard.addButton")}
-          onClick={addMap}
+          onClick={() => {
+            addMap(distance, {
+              locationString: locationString || "",
+              latitude: userLocation?.lat || 0,
+              longitude: userLocation?.lng || 0,
+            });
+          }}
           icon={<IoIosAdd />}
           useActiveStyle
         />
