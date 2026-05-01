@@ -10,21 +10,76 @@ import {
   AddMapSubtitle,
   DistanceInputWrapper,
 } from "./styles";
+import { useQuery } from "@tanstack/react-query";
+
+interface LocationData {
+  locationString: string;
+  latitude: number;
+  longitude: number;
+}
 
 export function MapManager({ addMap }: { addMap: () => void }) {
-  //TODO: Handle location detection and save distance and location in local storage
+  //TODO:  Save distance and location in local storage
   const [userLocation, setUserLocation] = useState<Coordinates>();
+  const [locationString, setLocationString] = useState<string>();
   const [distance, setDistance] = useState("50");
   const { t } = useTranslation();
+
+  const fetchLocation = async (): Promise<LocationData> => {
+    try {
+      const pos = await new Promise<GeolocationPosition>((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, {
+          timeout: 5000,
+        });
+      });
+
+      return {
+        locationString: `${t("mapManager.coordinates")}: ${pos.coords.latitude.toFixed(2)}, ${pos.coords.longitude.toFixed(2)}`,
+        latitude: pos.coords.latitude,
+        longitude: pos.coords.longitude,
+      };
+    } catch (error) {
+      console.warn(
+        "Unable to download precise location, I'm trying by IP...",
+        error,
+      );
+
+      const response = await fetch("https://ipapi.co/json/");
+      const data = await response.json();
+
+      return {
+        locationString: `${data.city},${data.region}, ${data.country_name}`,
+        latitude: data.latitude,
+        longitude: data.longitude,
+      };
+    }
+  };
+
+  const { refetch, isFetching } = useQuery({
+    queryKey: ["locationData"],
+    queryFn: fetchLocation,
+    enabled: false,
+  });
 
   return (
     <>
       <AddMapSubtitle>{t("mapManager.chooseLocation")}</AddMapSubtitle>
-
       <LocationSearch
-        onSearch={(location) => setUserLocation(location)}
-        buttonText={t("mapManager.myLocation")}
+        onSearch={async () => {
+          const { data } = await refetch();
+          if (data) {
+            setLocationString(data.locationString);
+            setUserLocation({
+              lat: data.latitude,
+              lng: data.longitude,
+            });
+          }
+        }}
+        buttonText={
+          isFetching ? t("mapManager.detecting") : t("mapManager.myLocation")
+        }
         buttonIcon={<LuMapPin />}
+        locationString={locationString}
       />
 
       <DistanceInputWrapper>

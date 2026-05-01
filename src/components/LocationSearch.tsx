@@ -16,6 +16,7 @@ type LocationSearchProps = {
   buttonText: string;
   buttonIcon: React.ReactElement<SVGSVGElement>;
   searchTitle?: string;
+  locationString?: string;
 };
 
 export function LocationSearch({
@@ -23,6 +24,7 @@ export function LocationSearch({
   buttonText,
   buttonIcon,
   searchTitle,
+  locationString,
 }: LocationSearchProps) {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [location, setLocation] = useState<Coordinates>({
@@ -58,9 +60,18 @@ export function LocationSearch({
       },
     );
   };
+
   useEffect(() => {
     initSearch();
   }, []);
+
+  useEffect(() => {
+    if (containerRef.current && locationString) {
+      containerRef.current
+        .querySelector("gmp-place-autocomplete")
+        ?.setAttribute("value", locationString);
+    }
+  }, [locationString]);
 
   const handleSearch = () => {
     onSearch(location);
