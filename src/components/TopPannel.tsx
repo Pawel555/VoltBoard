@@ -21,6 +21,7 @@ type TopPanelProps = {
   setEditDashboard(value: boolean): void;
   openFindStationModal(): void;
   openAddMapModal(): void;
+  disableMapButton?: boolean;
 };
 
 export function TopPannel({
@@ -28,6 +29,7 @@ export function TopPannel({
   setEditDashboard,
   openFindStationModal,
   openAddMapModal,
+  disableMapButton,
 }: TopPanelProps) {
   const [language, setLanguage] = useState<Language>(Language.EN);
   const { t, i18n } = useTranslation();
@@ -52,7 +54,8 @@ export function TopPannel({
           value={editDashboard}
           onClick={openAddMapModal}
           icon={<IoMapSharp />}
-          text={"Add map"}
+          text={t("mapManager.addMap")}
+          disabled={disableMapButton}
         />
         <IconButton
           value={editDashboard}

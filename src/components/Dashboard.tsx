@@ -24,7 +24,10 @@ import {
   saveLocation,
   saveWidgets,
 } from "../utils/storage";
-import { WIDGET_DEFAULT_DIMENSIONS } from "../constants/dashboard";
+import {
+  WIDGET_DEFAULT_DIMENSIONS,
+  WIDGET_MIN_MAX_DIMENSIONS,
+} from "../constants/dashboard";
 import { MapManager } from "./MapManager/MapManager";
 
 export function Dashboard() {
@@ -53,6 +56,8 @@ export function Dashboard() {
         chargepointid: widgetResourceIds.join(","),
       }),
   });
+
+  const disableMapButton = widgets.some((w) => w.type === WidgetType.MAP);
 
   const deleteWidget = (widgetId: string | number) => {
     const updatedWidgets = widgets.filter((w) => w.id !== widgetId);
@@ -197,6 +202,7 @@ export function Dashboard() {
         setEditDashboard={handleEditDashboard}
         openFindStationModal={() => setOpenFindStationModal(true)}
         openAddMapModal={() => setOpenAddMapModal(true)}
+        disableMapButton={disableMapButton}
       />
       <GridLayout
         className="layout"
@@ -206,9 +212,11 @@ export function Dashboard() {
           y: w.gridPosition.y,
           w: w.gridPosition.w,
           h: w.gridPosition.h,
+          ...WIDGET_MIN_MAX_DIMENSIONS[w.type],
         }))}
         width={1200}
         dragConfig={{ enabled: editDashboard }}
+        resizeConfig={{ enabled: editDashboard }}
         style={{ marginTop: 24 }}
         onLayoutChange={onLayoutChange}
       >

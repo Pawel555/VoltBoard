@@ -20,3 +20,10 @@ export type Widget = {
   resourceId: string | number;
   gridPosition: GridPosition;
 };
+
+export type WidgetMinMaxDimensions = {
+  maxH: number;
+  minH: number;
+  maxW: number;
+  minW: number;
+};
