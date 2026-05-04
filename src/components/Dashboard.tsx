@@ -29,6 +29,7 @@ import {
   WIDGET_MIN_MAX_DIMENSIONS,
 } from "../constants/dashboard";
 import { MapManager } from "./MapManager/MapManager";
+import { MAX_NUMBER_OF_STATIONS } from "../constants/managers";
 
 export function Dashboard() {
   const { t } = useTranslation();
@@ -42,7 +43,10 @@ export function Dashboard() {
   );
 
   const widgetResourceIds = useMemo(
-    () => widgets.map((w) => w.resourceId),
+    () =>
+      widgets
+        .filter((w) => w.type === WidgetType.STATION)
+        .map((w) => w.resourceId),
     [widgets],
   );
 
@@ -203,6 +207,9 @@ export function Dashboard() {
         openFindStationModal={() => setOpenFindStationModal(true)}
         openAddMapModal={() => setOpenAddMapModal(true)}
         disableMapButton={disableMapButton}
+        disableStationButton={
+          widgetResourceIds.length >= MAX_NUMBER_OF_STATIONS
+        }
       />
       <GridLayout
         className="layout"

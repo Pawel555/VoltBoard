@@ -2,13 +2,11 @@
   "dashboard": {
     "title": "EV Charging Hub",
     "subtitle": "Monitor and manage your charging network",
-    "modalTitle": "Find a charging station",
+    "modalTitle": "Add Favorite Charging Station",
     "addStationText": "Add station",
     "busy": "Busy",
     "available": "Available",
-    "searchTitle": "Find Nearest Stations",
     "searchPlaceholder": "Enter your location or address...",
-    "searchButton": "Find",
     "noStation": "No station found",
     "addButton": "Add",
     "saveButton": "Save",
@@ -21,5 +19,10 @@
     "myLocation": "My location",
     "coordinates": "Coordinates",
     "detecting": "Detecting ..."
+  },
+  "stationsManager": {
+    "selectedStations": "Selected stations",
+    "searchTitle": "Find Nearest Stations",
+    "searchButton": "Find"
   }
 }

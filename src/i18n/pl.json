@@ -2,13 +2,11 @@
   "dashboard": {
     "title": "Centrum ładowania EV",
     "subtitle": "Monitoruj i zarządzaj swoim panelem ładowania",
-    "modalTitle": "Znajdź stację ładowania",
+    "modalTitle": "Dodaj ulubioną stację ładowania",
     "addStationText": "Dodaj stację",
     "busy": "Zajęta",
     "available": "Dostępna",
-    "searchTitle": "Znajdź najbliższe stacje ładowania",
     "searchPlaceholder": "Wprowadź lokalizację lub adres...",
-    "searchButton": "Znajdź",
     "noStation": "Nie znaleziono stacji",
     "addButton": "Dodaj",
     "saveButton": "Zapisz",
@@ -21,5 +19,10 @@
       "myLocation": "Moja lokalizacja",
       "coordinates": "Współrzędne",
       "detecting": "Wykrywanie ..."
+  },
+    "stationsManager": {
+      "selectedStations": "Wybrane stacje",
+      "searchTitle": "Znajdź najbliższe stacje ładowania",
+      "searchButton": "Znajdź"
   }
 }

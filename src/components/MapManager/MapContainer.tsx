@@ -38,7 +38,7 @@ export function MapContainer() {
         <Marker
           key={s.id}
           position={{ lat: s.location.lat, lng: s.location.lng }}
-          title={`${s.name}`}
+          title={s.name}
           icon="http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
         />
       )),

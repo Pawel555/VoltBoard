@@ -22,6 +22,7 @@ type TopPanelProps = {
   openFindStationModal(): void;
   openAddMapModal(): void;
   disableMapButton?: boolean;
+  disableStationButton?: boolean;
 };
 
 export function TopPannel({
@@ -30,6 +31,7 @@ export function TopPannel({
   openFindStationModal,
   openAddMapModal,
   disableMapButton,
+  disableStationButton,
 }: TopPanelProps) {
   const [language, setLanguage] = useState<Language>(Language.EN);
   const { t, i18n } = useTranslation();
@@ -62,6 +64,7 @@ export function TopPannel({
           onClick={openFindStationModal}
           icon={<LuMapPin />}
           text={t("dashboard.addStationText")}
+          disabled={disableStationButton}
         />
         <IconButton
           value={language === Language.EN}

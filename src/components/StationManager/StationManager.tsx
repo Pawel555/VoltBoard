@@ -9,6 +9,8 @@ import type { Station } from "../../types/stations";
 import { useTranslation } from "react-i18next";
 import type { Coordinates } from "../../types/common";
 import { LocationSearch } from "../LocationSearch";
+import { INITIAL_LOCATION } from "../../constants/locations";
+import { MAX_NUMBER_OF_STATIONS } from "../../constants/managers";
 
 export function StationManager({
   saveSelectedStations,
@@ -18,10 +20,7 @@ export function StationManager({
   widgetStations: (number | string)[];
 }) {
   const [stationsToAdd, setStationsToAdd] = useState<Station[]>([]);
-  const [location, setLocation] = useState<Coordinates>({
-    lat: 50,
-    lng: 19,
-  });
+  const [location, setLocation] = useState<Coordinates>(INITIAL_LOCATION);
 
   const { t } = useTranslation();
   const { data: stations, isLoading } = useQuery({
@@ -56,10 +55,11 @@ export function StationManager({
     <StationManagerWrapper>
       <LocationSearch
         onSearch={(location) => setLocation(location)}
-        buttonText={t("dashboard.searchButton")}
-        searchTitle={t("dashboard.searchTitle")}
+        buttonText={t("stationsManager.searchButton")}
+        searchTitle={t("stationsManager.searchTitle")}
         buttonIcon={<IoIosSearch />}
       />
+      <SelectedStationCount>{`${t("stationsManager.selectedStations")}: ${selectedStationIds.length}/${MAX_NUMBER_OF_STATIONS}`}</SelectedStationCount>
       <StationList
         stations={stations || []}
         selectedStationIds={selectedStationIds}
@@ -85,6 +85,11 @@ export function StationManager({
 
 const StyledButton = styled(IconButton)`
   margin-top: 20px;
+`;
+
+const SelectedStationCount = styled.span`
+  color: ${(props) => props.theme.colors.accent};
+  text-align: left;
 `;
 
 const StationManagerWrapper = styled.div`
