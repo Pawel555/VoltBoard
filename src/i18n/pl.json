@@ -10,19 +10,24 @@
     "noStation": "Nie znaleziono stacji",
     "addButton": "Dodaj",
     "saveButton": "Zapisz",
-    "editButton": "Edytuj"
+    "editButton": "Edytuj",
+    "onMap": "na mapie.",
+    "inList": "na liście."
   },
-    "mapManager": {
+    "locationManager": {
       "addMap": "Dodaj mapę",
       "chooseLocation": "Wybierz lokalizację lub wykryj ją automatycznie, a następnie ustaw odległość, aby zobaczyć pobliskie stacje na mapie.",
       "distanceLabel": "Dystans: {{distance}} km",
       "myLocation": "Moja lokalizacja",
       "coordinates": "Współrzędne",
-      "detecting": "Wykrywanie ..."
+      "detecting": "Wykrywanie ...",
+      "listTitle": "Dodaj listę najbliższych stacji",
+      "listButton": "Dodaj pobliskie stacje"
   },
     "stationsManager": {
       "selectedStations": "Wybrane stacje",
       "searchTitle": "Znajdź najbliższe stacje ładowania",
-      "searchButton": "Znajdź"
+      "searchButton": "Znajdź",
+      "addFavoriteStation": "Dodaj ulubioną stację"
   }
 }

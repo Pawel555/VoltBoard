@@ -8,8 +8,9 @@ import {
   TitleWrapper,
 } from "./styles";
 import { IoLanguage, IoMapSharp } from "react-icons/io5";
-import { LuMapPin } from "react-icons/lu";
+import { LuMapPin, LuRadar } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
+import { LocationDialogType } from "../types/common";
 
 enum Language {
   EN = "en",
@@ -20,8 +21,9 @@ type TopPanelProps = {
   editDashboard: boolean;
   setEditDashboard(value: boolean): void;
   openFindStationModal(): void;
-  openAddMapModal(): void;
+  setLocationModal(value: LocationDialogType | false): void;
   disableMapButton?: boolean;
+  disableListButton?: boolean;
   disableStationButton?: boolean;
 };
 
@@ -29,8 +31,9 @@ export function TopPannel({
   editDashboard,
   setEditDashboard,
   openFindStationModal,
-  openAddMapModal,
+  setLocationModal,
   disableMapButton,
+  disableListButton,
   disableStationButton,
 }: TopPanelProps) {
   const [language, setLanguage] = useState<Language>(Language.EN);
@@ -54,16 +57,23 @@ export function TopPannel({
       <ButtonsWrapper>
         <IconButton
           value={editDashboard}
-          onClick={openAddMapModal}
+          onClick={() => setLocationModal(LocationDialogType.LIST)}
+          icon={<LuRadar />}
+          text={t("locationManager.listButton")}
+          disabled={disableListButton}
+        />
+        <IconButton
+          value={editDashboard}
+          onClick={() => setLocationModal(LocationDialogType.MAP)}
           icon={<IoMapSharp />}
-          text={t("mapManager.addMap")}
+          text={t("locationManager.addMap")}
           disabled={disableMapButton}
         />
         <IconButton
           value={editDashboard}
           onClick={openFindStationModal}
           icon={<LuMapPin />}
-          text={t("dashboard.addStationText")}
+          text={t("stationsManager.addFavoriteStation")}
           disabled={disableStationButton}
         />
         <IconButton

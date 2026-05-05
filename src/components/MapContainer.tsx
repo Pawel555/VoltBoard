@@ -1,14 +1,14 @@
 import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
-import { getDistance, getLocation } from "../../utils/storage";
-import { fetchStations } from "../../api/stations/api";
+import { getDistance, getLocation } from "../utils/storage";
+import { fetchStations } from "../api/stations/api";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import {
   INITIAL_DISTANCE,
   INITIAL_LOCATION,
   INITIAL_ZOOM,
-} from "../../constants/locations";
-import { MapWrapper } from "./styles";
+} from "../constants/locations";
+import styled from "styled-components";
 
 export function MapContainer() {
   const distance = getDistance();
@@ -63,3 +63,9 @@ export function MapContainer() {
     </MapWrapper>
   );
 }
+
+const MapWrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  border-radius: 8px;
+`;

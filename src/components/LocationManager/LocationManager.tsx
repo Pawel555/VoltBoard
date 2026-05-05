@@ -4,23 +4,29 @@ import { LuMapPin } from "react-icons/lu";
 import { IoIosAdd } from "react-icons/io";
 import { useTranslation } from "react-i18next";
 import {
-  AddMapButtonWrapper,
-  AddMapSubtitle,
+  AddButtonWrapper,
+  AddLocationSubtitle,
   DistanceInputWrapper,
 } from "./styles";
 import { useQuery } from "@tanstack/react-query";
 import { IconButton } from "../IconButton";
 import type { Coordinates, LocationData } from "../../types/common";
 import { INITIAL_LOCATION } from "../../constants/locations";
+import { getDistance, getLocation } from "../../utils/storage";
 
-export function MapManager({
-  addMap,
+export function LocationManager({
+  addWidget,
+  subtitle,
 }: {
-  addMap: (distance: string, location: LocationData) => void;
+  addWidget: (distance: string, location: LocationData) => void;
+  subtitle: string;
 }) {
+  const storedLocation = getLocation();
+  const storedDistance = getDistance();
+
   const [userLocation, setUserLocation] = useState<Coordinates>();
   const [locationString, setLocationString] = useState<string>();
-  const [distance, setDistance] = useState("50");
+  const [distance, setDistance] = useState(storedDistance || "50");
   const { t } = useTranslation();
 
   const fetchLocation = async (): Promise<LocationData> => {
@@ -32,7 +38,7 @@ export function MapManager({
       });
 
       return {
-        locationString: `${t("mapManager.coordinates")}: ${pos.coords.latitude.toFixed(2)}, ${pos.coords.longitude.toFixed(2)}`,
+        locationString: `${t("locationManager.coordinates")}: ${pos.coords.latitude.toFixed(2)}, ${pos.coords.longitude.toFixed(2)}`,
         latitude: pos.coords.latitude,
         longitude: pos.coords.longitude,
       };
@@ -61,7 +67,7 @@ export function MapManager({
 
   return (
     <>
-      <AddMapSubtitle>{t("mapManager.chooseLocation")}</AddMapSubtitle>
+      <AddLocationSubtitle>{subtitle}</AddLocationSubtitle>
       <LocationSearch
         onSearch={async () => {
           const { data } = await refetch();
@@ -74,14 +80,16 @@ export function MapManager({
           }
         }}
         buttonText={
-          isFetching ? t("mapManager.detecting") : t("mapManager.myLocation")
+          isFetching
+            ? t("locationManager.detecting")
+            : t("locationManager.myLocation")
         }
         buttonIcon={<LuMapPin />}
         locationString={locationString}
       />
 
       <DistanceInputWrapper>
-        <label>{t("mapManager.distanceLabel", { distance })}</label>
+        <label>{t("locationManager.distanceLabel", { distance })}</label>
         <input
           type="range"
           min={0}
@@ -90,12 +98,12 @@ export function MapManager({
           onChange={(e) => setDistance(e.target.value)}
         />
       </DistanceInputWrapper>
-      <AddMapButtonWrapper>
+      <AddButtonWrapper>
         <IconButton
           value={true}
           text={t("dashboard.addButton")}
           onClick={() => {
-            addMap(distance, {
+            addWidget(distance, {
               locationString: locationString || "",
               latitude: userLocation?.lat || INITIAL_LOCATION.lat,
               longitude: userLocation?.lng || INITIAL_LOCATION.lng,
@@ -104,7 +112,7 @@ export function MapManager({
           icon={<IoIosAdd />}
           useActiveStyle
         />
-      </AddMapButtonWrapper>
+      </AddButtonWrapper>
     </>
   );
 }

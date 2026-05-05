@@ -28,15 +28,18 @@ import {
   WIDGET_DEFAULT_DIMENSIONS,
   WIDGET_MIN_MAX_DIMENSIONS,
 } from "../constants/dashboard";
-import { MapManager } from "./MapManager/MapManager";
+import { LocationManager } from "./LocationManager/LocationManager";
 import { MAX_NUMBER_OF_STATIONS } from "../constants/managers";
+import { LocationDialogType } from "../types/common";
 
 export function Dashboard() {
   const { t } = useTranslation();
 
   const [editDashboard, setEditDashboard] = useState(false);
   const [openFindStationModal, setOpenFindStationModal] = useState(false);
-  const [openAddMapModal, setOpenAddMapModal] = useState(false);
+  const [openLocationModal, setLocationModal] = useState<
+    LocationDialogType | false
+  >(false);
 
   const [widgets, setWidgets] = useState<Widget[]>(
     getWidgets() || initialWidgetMock,
@@ -62,6 +65,7 @@ export function Dashboard() {
   });
 
   const disableMapButton = widgets.some((w) => w.type === WidgetType.MAP);
+  const disableListButton = widgets.some((w) => w.type === WidgetType.LIST);
 
   const deleteWidget = (widgetId: string | number) => {
     const updatedWidgets = widgets.filter((w) => w.id !== widgetId);
@@ -178,24 +182,39 @@ export function Dashboard() {
     </Modal>
   );
 
-  const renderAddMapModal = () => (
-    <Modal
-      isOpen={openAddMapModal}
-      onClose={() => setOpenAddMapModal(false)}
-      title={t("mapManager.addMap")}
-    >
-      {openAddMapModal && (
-        <MapManager
-          addMap={(distance, location) => {
-            saveLocation(location);
-            saveDistance(distance);
-            addNewWidgets([], WidgetType.MAP);
-            setOpenAddMapModal(false);
-          }}
-        />
-      )}
-    </Modal>
-  );
+  const renderAddMapModal = () => {
+    const isMapDialog = openLocationModal === LocationDialogType.MAP;
+    return (
+      <Modal
+        isOpen={!!openLocationModal}
+        onClose={() => setLocationModal(false)}
+        title={
+          isMapDialog
+            ? t("locationManager.addMap")
+            : t("locationManager.listTitle")
+        }
+      >
+        {openLocationModal && (
+          <LocationManager
+            addWidget={(distance, location) => {
+              saveLocation(location);
+              saveDistance(distance);
+              if (isMapDialog) {
+                addNewWidgets([], WidgetType.MAP);
+              } else {
+                addNewWidgets([], WidgetType.LIST);
+              }
+              setLocationModal(false);
+            }}
+            subtitle={`${t("locationManager.chooseLocation")} ${
+              isMapDialog ? t("dashboard.onMap") : t("dashboard.inList")
+            }
+          `}
+          />
+        )}
+      </Modal>
+    );
+  };
 
   return (
     <DashboardWrapper>
@@ -205,8 +224,9 @@ export function Dashboard() {
         editDashboard={editDashboard}
         setEditDashboard={handleEditDashboard}
         openFindStationModal={() => setOpenFindStationModal(true)}
-        openAddMapModal={() => setOpenAddMapModal(true)}
+        setLocationModal={setLocationModal}
         disableMapButton={disableMapButton}
+        disableListButton={disableListButton}
         disableStationButton={
           widgetResourceIds.length >= MAX_NUMBER_OF_STATIONS
         }

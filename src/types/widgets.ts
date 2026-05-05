@@ -11,6 +11,7 @@ export type GridPosition = WidgetDimensions & {
 export enum WidgetType {
   STATION = "STATION",
   MAP = "MAP",
+  LIST = "LIST",
   // TODO: This enum should be extended with additional widget types in the future.
 }
 

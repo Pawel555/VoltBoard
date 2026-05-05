@@ -3,26 +3,31 @@
     "title": "EV Charging Hub",
     "subtitle": "Monitor and manage your charging network",
     "modalTitle": "Add Favorite Charging Station",
-    "addStationText": "Add station",
     "busy": "Busy",
     "available": "Available",
     "searchPlaceholder": "Enter your location or address...",
     "noStation": "No station found",
     "addButton": "Add",
     "saveButton": "Save",
-    "editButton": "Edit"
+    "editButton": "Edit",
+    "onMap": "on the map.",
+    "inList": "in the list."
   },
-  "mapManager": {
+  "locationManager": {
     "addMap": "Add map",
-    "chooseLocation": "Select a location or detect it automatically, then set a distance to see nearby stations on the map.",
+    "chooseLocation": "Select a location or detect it automatically, then set a distance to see nearby stations",
     "distanceLabel": "Distance: {{distance}} km",
     "myLocation": "My location",
     "coordinates": "Coordinates",
-    "detecting": "Detecting ..."
+    "detecting": "Detecting ...",
+    "listTitle": "Add list of nearby stations",
+    "listButton": "Add nearby stations"
+
   },
   "stationsManager": {
     "selectedStations": "Selected stations",
     "searchTitle": "Find Nearest Stations",
-    "searchButton": "Find"
+    "searchButton": "Find",
+    "addFavoriteStation": "Add favorite station"
   }
 }

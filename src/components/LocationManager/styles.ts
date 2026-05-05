@@ -9,21 +9,16 @@ export const DistanceInputWrapper = styled.div`
   margin-bottom: 16px;
 `;
 
-export const AddMapButtonWrapper = styled.div`
+export const AddButtonWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
   width: 100%;
 `;
 
-export const AddMapSubtitle = styled.p`
+export const AddLocationSubtitle = styled.p`
   opacity: 0.5;
   margin-top: 12px;
   margin-bottom: 12px;
   text-align: left;
-`;
-
-export const MapWrapper = styled.div`
-  height: 100%;
-  width: 100%;
-  border-radius: 8px;
+  margin-left: 10px;
 `;

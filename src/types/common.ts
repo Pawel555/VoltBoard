@@ -8,3 +8,8 @@ export type LocationData = {
   latitude: number;
   longitude: number;
 };
+
+export enum LocationDialogType {
+  LIST = "LIST",
+  MAP = "MAP",
+}
