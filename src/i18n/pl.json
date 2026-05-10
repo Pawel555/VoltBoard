@@ -12,7 +12,8 @@
     "saveButton": "Zapisz",
     "editButton": "Edytuj",
     "onMap": "na mapie.",
-    "inList": "na liście."
+    "inList": "na liście.",
+    "nearbyStations": "Stacje w pobliżu"
   },
     "locationManager": {
       "addMap": "Dodaj mapę",

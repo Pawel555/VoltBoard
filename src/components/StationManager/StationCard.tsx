@@ -7,6 +7,7 @@ import {
   Availability,
   Badge,
   Card,
+  DistanceWrapper,
   IconTextWrpper,
   MainInfo,
   SideInfo,
@@ -23,6 +24,7 @@ type StationListProps = {
   minWidth?: number;
   minHeight?: number;
   onClick?(): void;
+  simpleView?: boolean;
 };
 
 export const StationCard = ({
@@ -33,6 +35,7 @@ export const StationCard = ({
   minWidth,
   minHeight,
   onClick,
+  simpleView,
 }: StationListProps) => {
   const { t } = useTranslation();
 
@@ -45,37 +48,59 @@ export const StationCard = ({
       $minWidth={minWidth}
       $minHeight={minHeight}
       onClick={onClick}
+      $smallPadding={simpleView}
     >
-      <MainInfo>
-        <Title>{station.name}</Title>
-        <IconTextWrpper>
-          <LuMapPin size={14} color={darkTheme.colors.textGray} />
-          <Subtitle>{station.address}</Subtitle>
-        </IconTextWrpper>
-        <StatsRow>
-          <Availability>
-            {station.availableSlots}/{station.totalSlots} available
-          </Availability>
-          <IconTextWrpper>
+      {simpleView ? (
+        <>
+          <Subtitle $white>{station.name}</Subtitle>
+          <DistanceWrapper>
+            <Subtitle>{`${station.distance} km`}</Subtitle>
             <HiOutlineLightningBolt
               size={14}
-              color={darkTheme.colors.textGray}
+              color={
+                station.isBusy
+                  ? darkTheme.colors.orange
+                  : darkTheme.colors.accent
+              }
             />
-            <Subtitle>{station.powerKW} kW</Subtitle>
-          </IconTextWrpper>
-        </StatsRow>
-      </MainInfo>
-      <SideInfo>
-        <Badge $isBusy={station.isBusy}>
-          <HiOutlineLightningBolt
-            size={14}
-            color={
-              station.isBusy ? darkTheme.colors.orange : darkTheme.colors.accent
-            }
-          />
-          {station.isBusy ? t("dashboard.busy") : t("dashboard.available")}
-        </Badge>
-      </SideInfo>
+          </DistanceWrapper>
+        </>
+      ) : (
+        <>
+          <MainInfo>
+            <Title>{station.name}</Title>
+            <IconTextWrpper>
+              <LuMapPin size={14} color={darkTheme.colors.textGray} />
+              <Subtitle>{station.address}</Subtitle>
+            </IconTextWrpper>
+            <StatsRow>
+              <Availability>
+                {`${station.availableSlots}/${station.totalSlots} ${t("dashboard.available")}`}
+              </Availability>
+              <IconTextWrpper>
+                <HiOutlineLightningBolt
+                  size={14}
+                  color={darkTheme.colors.textGray}
+                />
+                <Subtitle>{station.powerKW} kW</Subtitle>
+              </IconTextWrpper>
+            </StatsRow>
+          </MainInfo>
+          <SideInfo>
+            <Badge $isBusy={station.isBusy}>
+              <HiOutlineLightningBolt
+                size={14}
+                color={
+                  station.isBusy
+                    ? darkTheme.colors.orange
+                    : darkTheme.colors.accent
+                }
+              />
+              {station.isBusy ? t("dashboard.busy") : t("dashboard.available")}
+            </Badge>
+          </SideInfo>
+        </>
+      )}
     </Card>
   );
 };

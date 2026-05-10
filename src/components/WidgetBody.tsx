@@ -6,6 +6,7 @@ import { Card } from "./StationManager/styles";
 import { BsEvStationFill } from "react-icons/bs";
 import { useTranslation } from "react-i18next";
 import { MapContainer } from "./MapContainer";
+import { NearbyStationsList } from "./NearbyStationList";
 
 export function WidgetBody({
   widget,
@@ -47,8 +48,7 @@ export function WidgetBody({
       case WidgetType.MAP:
         return <MapContainer />;
       case WidgetType.LIST:
-        //TODO: implement list widget
-        return <div>List Widget Content</div>;
+        return <NearbyStationsList />;
       default:
         return <div>Unknown Widget Type</div>;
     }

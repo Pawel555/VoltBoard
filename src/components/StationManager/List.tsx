@@ -8,6 +8,7 @@ interface StationListProps {
   isLoading: boolean;
   onStationClick?(station: Station): void;
   selectedStationIds?: (number | string)[];
+  simpleList?: boolean;
 }
 
 export const StationList = ({
@@ -15,17 +16,21 @@ export const StationList = ({
   isLoading,
   onStationClick,
   selectedStationIds,
+  simpleList,
 }: StationListProps) => {
   if (isLoading) {
+    const placeholderCount = simpleList ? 10 : 6;
+
     return (
-      <ListWrapper>
-        {[...Array(6)].map((_, i) => (
+      <ListWrapper $simpleList={simpleList}>
+        {[...Array(placeholderCount)].map((_, i) => (
           <Card
             key={i}
             $isLoading={true}
-            $minHeight={120}
-            $minWidth={480}
+            $minHeight={simpleList ? 35 : 120}
+            $minWidth={simpleList ? 340 : 480}
             $disableHover
+            $smallPadding
           />
         ))}
       </ListWrapper>
@@ -33,7 +38,7 @@ export const StationList = ({
   }
 
   return (
-    <ListWrapper>
+    <ListWrapper $simpleList={simpleList}>
       {stations.map((station) => {
         const stationSelected = selectedStationIds?.includes(station.id);
         const disableStationCard =
@@ -46,7 +51,7 @@ export const StationList = ({
             key={station.id}
             station={station}
             isLoading={false}
-            disableHover={disableStationCard}
+            disableHover={disableStationCard || simpleList}
             onClick={
               !disableStationCard
                 ? () => onStationClick && onStationClick(station)
@@ -55,6 +60,7 @@ export const StationList = ({
             selected={
               onStationClick ? selectedStationIds?.includes(station.id) : false
             }
+            simpleView={simpleList}
           />
         );
       })}

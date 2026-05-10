@@ -11,7 +11,9 @@
     "saveButton": "Save",
     "editButton": "Edit",
     "onMap": "on the map.",
-    "inList": "in the list."
+    "inList": "in the list.",
+    "nearbyStations": "Nearby Stations"
+
   },
   "locationManager": {
     "addMap": "Add map",

@@ -8,6 +8,7 @@ export type Station = {
     lat: number;
     lng: number;
   };
+  distance?: string;
   powerKW: number;
   isBusy: boolean;
 };

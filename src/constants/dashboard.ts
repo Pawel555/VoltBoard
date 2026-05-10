@@ -7,6 +7,7 @@ import {
 export const WIDGET_DEFAULT_DIMENSIONS: Record<WidgetType, WidgetDimensions> = {
   [WidgetType.STATION]: { w: 4, h: 1 },
   [WidgetType.MAP]: { w: 8, h: 2 },
+  [WidgetType.LIST]: { w: 4, h: 3 },
 };
 
 export const WIDGET_MIN_MAX_DIMENSIONS: Record<
@@ -15,4 +16,5 @@ export const WIDGET_MIN_MAX_DIMENSIONS: Record<
 > = {
   [WidgetType.STATION]: { maxH: 2, minH: 1, maxW: 6, minW: 4 },
   [WidgetType.MAP]: { maxH: 4, minH: 1, maxW: 12, minW: 2 },
+  [WidgetType.LIST]: { maxH: 5, minH: 3, maxW: 8, minW: 4 },
 };

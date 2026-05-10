@@ -1,10 +1,10 @@
 import styled, { keyframes, css } from "styled-components";
 
-export const ListWrapper = styled.div`
+export const ListWrapper = styled.div<{ $simpleList?: boolean }>`
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  width: 550px;
+  gap: ${({ $simpleList }) => ($simpleList ? "4px" : "12px")};
+  ${({ $simpleList }) => !$simpleList && `width:550px;`}
   padding-right: 8px;
   overflow-y: auto;
   flex-grow: 1;
@@ -27,6 +27,7 @@ export const Card = styled.div<{
   $selected?: boolean;
   $minWidth?: number;
   $minHeight?: number;
+  $smallPadding?: boolean;
 }>`
   background-color: ${({ theme, $isLoading }) =>
     $isLoading ? theme.colors.textGray : theme.colors.darkGray};
@@ -36,8 +37,8 @@ export const Card = styled.div<{
   ${({ $minHeight }) => $minHeight && `min-height: ${$minHeight}px;`}
   width: 100%;
   text-align: left;
-  border-radius: 16px;
-  padding: 16px 20px;
+  border-radius: ${({ $smallPadding }) => ($smallPadding ? `8px` : "16px")};
+  padding: ${({ $smallPadding }) => ($smallPadding ? `6px 8px` : "16px 20px")};
   display: flex;
   justify-content: space-between;
   transition: all 0.2s ease-in-out;
@@ -71,8 +72,9 @@ export const Title = styled.h3`
   margin: 0;
 `;
 
-export const Subtitle = styled.p`
-  color: ${({ theme }) => theme.colors.textGray};
+export const Subtitle = styled.p<{ $white?: boolean }>`
+  color: ${({ theme, $white }) =>
+    $white ? theme.colors.white : theme.colors.textGray};
   margin: 0;
   font-size: ${({ theme }) => theme.fontSizes.small};
 `;
@@ -118,5 +120,11 @@ export const IconTextWrpper = styled.div`
   display: flex;
   align-items: center;
   flex-direction: row;
+  gap: 4px;
+`;
+
+export const DistanceWrapper = styled.div`
+  display: flex;
+  align-items: center;
   gap: 4px;
 `;

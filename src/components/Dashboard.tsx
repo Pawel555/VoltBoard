@@ -15,8 +15,6 @@ import { useTranslation } from "react-i18next";
 import { StationManager } from "./StationManager/StationManager";
 import { WidgetBody } from "./WidgetBody";
 import { WidgetType, type Widget } from "../types/widgets";
-import { useQuery } from "@tanstack/react-query";
-import { fetchStations } from "../api/stations/api";
 import { initialWidgetMock } from "../mock/dashboard.mock";
 import {
   getWidgets,
@@ -31,6 +29,7 @@ import {
 import { LocationManager } from "./LocationManager/LocationManager";
 import { MAX_NUMBER_OF_STATIONS } from "../constants/managers";
 import { LocationDialogType } from "../types/common";
+import { useFavouriteStations } from "../hooks/hooks";
 
 export function Dashboard() {
   const { t } = useTranslation();
@@ -53,16 +52,7 @@ export function Dashboard() {
     [widgets],
   );
 
-  const { data: stations, isLoading } = useQuery({
-    queryKey: ["stations", widgetResourceIds],
-    queryFn: () =>
-      fetchStations({
-        compact: false,
-        verbose: false,
-        countrycode: "PL",
-        chargepointid: widgetResourceIds.join(","),
-      }),
-  });
+  const { data: stations, isLoading } = useFavouriteStations(widgetResourceIds);
 
   const disableMapButton = widgets.some((w) => w.type === WidgetType.MAP);
   const disableListButton = widgets.some((w) => w.type === WidgetType.LIST);
@@ -152,6 +142,22 @@ export function Dashboard() {
           setWidgets((prevWidgets) => [...prevWidgets, newMapWidget]);
         }
         break;
+      case WidgetType.LIST:
+        {
+          const newListWidget: Widget = {
+            id: `${Date.now()}`,
+            type,
+            resourceId: 1,
+            gridPosition: {
+              x: 0,
+              y: Infinity,
+              ...WIDGET_DEFAULT_DIMENSIONS[WidgetType.LIST],
+            },
+          };
+          saveWidgets([...widgets, newListWidget]);
+          setWidgets((prevWidgets) => [...prevWidgets, newListWidget]);
+        }
+        break;
     }
   };
 
@@ -182,7 +188,7 @@ export function Dashboard() {
     </Modal>
   );
 
-  const renderAddMapModal = () => {
+  const renderAddMapOrListModal = () => {
     const isMapDialog = openLocationModal === LocationDialogType.MAP;
     return (
       <Modal
@@ -219,7 +225,7 @@ export function Dashboard() {
   return (
     <DashboardWrapper>
       {renderStationModal()}
-      {renderAddMapModal()}
+      {renderAddMapOrListModal()}
       <TopPannel
         editDashboard={editDashboard}
         setEditDashboard={handleEditDashboard}

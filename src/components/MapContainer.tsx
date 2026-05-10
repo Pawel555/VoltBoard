@@ -1,36 +1,11 @@
 import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
-import { getDistance, getLocation } from "../utils/storage";
-import { fetchStations } from "../api/stations/api";
-import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
-import {
-  INITIAL_DISTANCE,
-  INITIAL_LOCATION,
-  INITIAL_ZOOM,
-} from "../constants/locations";
+import { INITIAL_ZOOM } from "../constants/locations";
 import styled from "styled-components";
+import { useNearbyStations } from "../hooks/hooks";
 
 export function MapContainer() {
-  const distance = getDistance();
-  const location = getLocation();
-
-  const center = {
-    lat: location?.latitude || INITIAL_LOCATION.lat,
-    lng: location?.longitude || INITIAL_LOCATION.lng,
-  };
-
-  const { data: stations } = useQuery({
-    queryKey: ["MapStations", center.lat, center.lng],
-    queryFn: () =>
-      fetchStations({
-        compact: false,
-        verbose: true,
-        longitude: center.lng,
-        latitude: center.lat,
-        distance: Number(distance) || INITIAL_DISTANCE,
-        maxresults: 10,
-      }),
-  });
+  const { stations, center } = useNearbyStations();
 
   const stationMarkers = useMemo(
     () =>

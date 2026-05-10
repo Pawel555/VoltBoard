@@ -14,6 +14,7 @@ export type AddressInfo = {
   CountryID: number;
   Latitude: number;
   Longitude: number;
+  Distance: number;
 };
 
 export type StatusType = {
