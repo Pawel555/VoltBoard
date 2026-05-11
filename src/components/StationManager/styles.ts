@@ -70,6 +70,11 @@ export const MainInfo = styled.div`
 export const Title = styled.h3`
   color: ${({ theme }) => theme.colors.accent};
   margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const Subtitle = styled.p<{ $white?: boolean }>`

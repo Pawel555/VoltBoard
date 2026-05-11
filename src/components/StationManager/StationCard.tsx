@@ -68,7 +68,7 @@ export const StationCard = ({
       ) : (
         <>
           <MainInfo>
-            <Title>{station.name}</Title>
+            <Title title={station.name}>{station.name}</Title>
             <IconTextWrpper>
               <LuMapPin size={14} color={darkTheme.colors.textGray} />
               <Subtitle>{station.address}</Subtitle>

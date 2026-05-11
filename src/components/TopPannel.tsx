@@ -8,9 +8,10 @@ import {
   TitleWrapper,
 } from "./styles";
 import { IoLanguage, IoMapSharp } from "react-icons/io5";
-import { LuMapPin, LuRadar } from "react-icons/lu";
+import { LuRadar } from "react-icons/lu";
 import { useTranslation } from "react-i18next";
 import { LocationDialogType } from "../types/common";
+import { GiBrokenHeartZone } from "react-icons/gi";
 
 enum Language {
   EN = "en",
@@ -72,7 +73,7 @@ export function TopPannel({
         <IconButton
           value={editDashboard}
           onClick={openFindStationModal}
-          icon={<LuMapPin />}
+          icon={<GiBrokenHeartZone />}
           text={t("stationsManager.addFavoriteStation")}
           disabled={disableStationButton}
         />
