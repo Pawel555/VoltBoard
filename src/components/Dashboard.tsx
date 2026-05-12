@@ -29,7 +29,7 @@ import {
 import { LocationManager } from "./LocationManager/LocationManager";
 import { MAX_NUMBER_OF_STATIONS } from "../constants/managers";
 import { LocationDialogType } from "../types/common";
-import { useFavouriteStations } from "../hooks/hooks";
+import { useFavouriteStations, useWindowWidth } from "../hooks/hooks";
 
 export function Dashboard() {
   const { t } = useTranslation();
@@ -43,6 +43,8 @@ export function Dashboard() {
   const [widgets, setWidgets] = useState<Widget[]>(
     getWidgets() || initialWidgetMock,
   );
+
+  const windowWidth = useWindowWidth(250);
 
   const widgetResourceIds = useMemo(
     () =>
@@ -247,7 +249,7 @@ export function Dashboard() {
           h: w.gridPosition.h,
           ...WIDGET_MIN_MAX_DIMENSIONS[w.type],
         }))}
-        width={1200}
+        width={windowWidth - 100}
         dragConfig={{ enabled: editDashboard }}
         resizeConfig={{ enabled: editDashboard }}
         style={{ marginTop: 24 }}

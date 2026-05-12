@@ -9,6 +9,7 @@ export const ListWrapper = styled.div<{ $simpleList?: boolean }>`
   overflow-y: auto;
   flex-grow: 1;
 `;
+
 const pulse = keyframes`
   0% { opacity: 0.5; }
   50% { opacity: 1; }
@@ -61,10 +62,14 @@ export const Card = styled.div<{
   ${({ $selected }) => $selected && hoverEffect}
 `;
 
-export const MainInfo = styled.div`
+export const ColumnStyles = styled.div`
   display: flex;
   flex-direction: column;
   gap: 4px;
+`;
+
+export const MainInfo = styled(ColumnStyles)`
+  justify-content: space-between;
 `;
 
 export const Title = styled.h3`

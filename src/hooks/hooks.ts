@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchStations } from "../api/stations/api";
 import { getDistance, getLocation } from "../utils/storage";
 import { INITIAL_DISTANCE, INITIAL_LOCATION } from "../constants/locations";
+import { useEffect, useState } from "react";
 
 export function useFavouriteStations(widgetResourceIds: (string | number)[]) {
   return useQuery({
@@ -40,3 +41,31 @@ export function useNearbyStations() {
 
   return { stations, isLoading, center };
 }
+
+export const useWindowWidth = (delay: number = 250): number => {
+  const [width, setWidth] = useState<number>(
+    typeof window !== "undefined" ? window.innerWidth : 0,
+  );
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+    const handleResize = () => {
+      if (timeoutId) clearTimeout(timeoutId);
+
+      timeoutId = setTimeout(() => {
+        setWidth(window.innerWidth);
+      }, delay);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (timeoutId) clearTimeout(timeoutId);
+    };
+  }, [delay]);
+
+  return width;
+};

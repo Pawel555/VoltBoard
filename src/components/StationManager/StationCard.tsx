@@ -7,6 +7,7 @@ import {
   Availability,
   Badge,
   Card,
+  ColumnStyles,
   DistanceWrapper,
   IconTextWrpper,
   MainInfo,
@@ -68,11 +69,13 @@ export const StationCard = ({
       ) : (
         <>
           <MainInfo>
-            <Title title={station.name}>{station.name}</Title>
-            <IconTextWrpper>
-              <LuMapPin size={14} color={darkTheme.colors.textGray} />
-              <Subtitle>{station.address}</Subtitle>
-            </IconTextWrpper>
+            <ColumnStyles>
+              <Title title={station.name}>{station.name}</Title>
+              <IconTextWrpper>
+                <LuMapPin size={14} color={darkTheme.colors.textGray} />
+                <Subtitle>{station.address}</Subtitle>
+              </IconTextWrpper>
+            </ColumnStyles>
             <StatsRow>
               <Availability>
                 {`${station.availableSlots}/${station.totalSlots} ${t("dashboard.available")}`}
@@ -98,6 +101,7 @@ export const StationCard = ({
               />
               {station.isBusy ? t("dashboard.busy") : t("dashboard.available")}
             </Badge>
+            {station.distance && <Subtitle>{station.distance} km</Subtitle>}
           </SideInfo>
         </>
       )}
