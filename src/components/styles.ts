@@ -3,6 +3,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { MdDeleteOutline } from "react-icons/md";
 import styled from "styled-components";
 import { IconButton } from "./IconButton";
+import { DeleteButtonPosition } from "../types/common";
 
 //Dashboard
 export const DashboardWrapper = styled.div`
@@ -29,14 +30,25 @@ export const WidgetWrapper = styled.div<{ $editStyle?: boolean }>`
   cursor: ${({ $editStyle }) => ($editStyle ? "move" : "default")};
 `;
 
-export const DeleteButtonWrapper = styled.div`
+export const DeleteButtonWrapper = styled.div<{
+  position: DeleteButtonPosition;
+}>`
   position: absolute;
-  bottom: 12px;
   right: 12px;
   z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
+  ${({ position }) => {
+    switch (position) {
+      case DeleteButtonPosition.TOP:
+        return "top: 12px;";
+      case DeleteButtonPosition.CENTER:
+        return "top: 50%; transform: translateY(-50%);";
+      case DeleteButtonPosition.BOTTOM:
+        return "bottom: 12px;";
+    }
+  }}
 `;
 
 export const DeleteButton = styled.button`

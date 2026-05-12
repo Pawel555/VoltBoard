@@ -28,7 +28,7 @@ import {
 } from "../constants/dashboard";
 import { LocationManager } from "./LocationManager/LocationManager";
 import { MAX_NUMBER_OF_STATIONS } from "../constants/managers";
-import { LocationDialogType } from "../types/common";
+import { DeleteButtonPosition, LocationDialogType } from "../types/common";
 import { useFavouriteStations, useWindowWidth } from "../hooks/hooks";
 
 export function Dashboard() {
@@ -68,10 +68,16 @@ export function Dashboard() {
     return widgets.map((widget) => {
       const widgetData = stations?.find((s) => s.id === widget.resourceId);
 
+      const buttonPosition =
+        widget.type === WidgetType.STATION
+          ? DeleteButtonPosition.BOTTOM
+          : widget.type === WidgetType.MAP
+            ? DeleteButtonPosition.CENTER
+            : DeleteButtonPosition.TOP;
       return (
         <WidgetWrapper key={widget.id} $editStyle={editDashboard}>
           {editDashboard && (
-            <DeleteButtonWrapper>
+            <DeleteButtonWrapper position={buttonPosition}>
               <DeleteButton onClick={() => deleteWidget(widget.id)}>
                 <DeleteIcon />
               </DeleteButton>
