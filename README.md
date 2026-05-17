@@ -1,73 +1,147 @@
-# React + TypeScript + Vite
+# VoltBoard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern dashboard for discovering and managing electric vehicle charging stations. VoltBoard provides an intuitive interface to search nearby stations, save favorites, and customize your dashboard with interactive widgets.
 
-Currently, two official plugins are available:
+## External API Integrations
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Google Maps API
 
-## React Compiler
+VoltBoard uses **Google Maps** for interactive map visualization and geolocation services.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Open Charge Map API
 
-## Expanding the ESLint configuration
+VoltBoard uses **Open Charge Map** to retrieve charging station information.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Features
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Interactive Dashboard** – Customizable grid-based layout with draggable and resizable widgets
+- **Google Maps Integration** – Real-time visualization of nearby charging stations on an interactive map
+- **Station Search** – Find nearby stations by location with distance filtering
+- **Favorite Stations** – Save and manage your favorite charging stations for quick access
+- **Multi-language Support** – Full i18n support for Polish and English interfaces
+- **Location Management** – Automatic geolocation detection with manual search capability
+- **Real-time Data** – TanStack Query for efficient data fetching and caching
+- **Modular Components** – Reusable, styled components built with Styled Components
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Tech Stack
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- **Framework:** React 19 with TypeScript
+- **Build Tool:** Vite
+- **Styling:** Styled Components
+- **Maps:** Google Maps API (@vis.gl/react-google-maps)
+- **State Management & Data Fetching:** TanStack Query (React Query)
+- **HTTP Client:** Axios
+- **Layout:** React Grid Layout
+- **Internationalization:** i18next & react-i18next
+- **Icons:** React Icons
+- **Code Quality:** ESLint with TypeScript support
+- **Testing:** Vitest & React Testing Library
+
+## Architecture & Project Structure
+
+```
+src/
+├── api/                    # API integration layer
+│   └── stations/          # Station-related API calls, types, and data mapping
+├── components/            # React components
+│   ├── Dashboard.tsx      # Main dashboard with grid layout
+│   ├── MapContainer.tsx   # Google Maps integration
+│   ├── LocationSearch.tsx # Location search functionality
+│   ├── Modal.tsx          # Reusable modal component
+│   ├── StationManager/    # Station selection and management
+│   └── LocationManager/   # Location detection and management
+├── hooks/                 # Custom React hooks
+├── types/                 # TypeScript type definitions
+├── utils/                 # Utility functions (storage, helpers)
+├── styles/                # Global styles and theme configuration
+├── constants/             # App-wide constants
+├── i18n/                  # i18n configuration and translation files
+└── mock/                  # Mock data for development
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Component Organization
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Dashboard** – Root component managing widget state, layout changes, and modal dialogs
+- **WidgetBody** – Generic widget renderer supporting multiple widget types (MAP, LIST, STATION)
+- **StationManager** – Handles station filtering and selection
+- **LocationManager** – Manages geolocation and location-based searches
+- **MapContainer** – Renders Google Maps with station markers
+- **NearbyStationList** – Displays stations near the user's location
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Styling Strategy
+
+- Styled Components for scoped, dynamic styling
+- Theme system for consistent color schemes and spacing
+- CSS Grid Layout integration for dashboard flexibility
+
+### Scalability Considerations
+
+- Modular component structure for easy feature additions
+- Custom hooks for logic reusability
+- TanStack Query for intelligent caching and synchronization
+- Type safety with TypeScript for refactoring confidence
+- API abstraction layer for easy backend integration changes
+
+## Screenshots
+
+### Dashboard
+
+![Dashboard](images/all-widgets.png)
+
+### Edit Mode
+
+![Edit mode](images/edit-mode.png)
+
+### Add Favourite Stations
+
+![Add Favourite Stations](images/add-favourite-stations.png)
+
+### Add Nearby Stations List
+
+![Add Nearby Stations List](images/add-nearby-stations.png)
+
+## Preview
+
+![Demo](images/demo.gif)
+
+### Setup
+
+```bash
+git clone https://github.com/yourusername/voltboard.git
+cd voltboard
 ```
+
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Create a `.env.local` file and add your Google Maps API key:
+
+```
+VITE_GOOGLE_MAPS_API_KEY=your_api_key_here
+```
+
+4. Start the development seand Open Charge Map rve and :
+
+```bash
+npm run dev
+```
+
+The application will
+VITE_OPEN_CHARGE_MAP_API_KEY=your_api_key_here
+be available at `http://localhost:5173`
+
+## Available Scripts
+
+- **`npm run dev`** – Start the Vite development server with Hot Module Replacement
+- **`npm run build`** – Build the project for production (includes TypeScript compilation)
+- **`npm run lint`** – Run ESLint to check code quality
+- **`npm run preview`** – Preview the production build locally
+
+## Author
+
+**Paweł Tokarek** – Developer
+
+For questions or suggestions, feel free to reach out or open an issue on GitHub.
